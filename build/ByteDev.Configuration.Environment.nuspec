@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ByteDev.Configuration.Environment</id>
+    <title>ByteDev.Configuration.Environment</title>
+    <version>0.0.1</version>
+    <authors>Paul Stanley</authors>
+    <owners>Paul Stanley</owners>
+    <copyright>Copyright 2020</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library to help when using environment variables.</description>
+    <tags>environment variables configuration settings</tags>
+    <projectUrl>https://github.com/ByteDev/ByteDev.Configuration.Environment</projectUrl>
+    <icon>images\icon.png</icon>
+    <license type="file">LICENSE</license>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\ByteDev.Configuration.Environment\bin\Release\netstandard2.0\ByteDev.Configuration.Environment.dll" target="lib\netstandard2.0" />
+    <file src="..\src\ByteDev.Configuration.Environment\bin\Release\netstandard2.0\ByteDev.Configuration.Environment.xml" target="lib\netstandard2.0" />
+    <file src="..\images\icon.png" target="images\" />
+    <file src="..\LICENSE*" target="" />
+  </files>
+</package>

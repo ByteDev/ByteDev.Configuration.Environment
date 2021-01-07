@@ -47,6 +47,18 @@ namespace ByteDev.Configuration.Environment
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException" /> class.
         /// </summary>
+        /// <param name="name">Environment variable's name.</param>
+        /// <param name="value">Environment variable's value.</param>
+        /// <param name="expectedType">The expected type of the environment variable value.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>       
+        public UnexpectedEnvironmentVariableTypeException(string name, string value, Type expectedType, Exception innerException)
+            : base($"Environment variable: '{name}' value: '{value}' is not of expected type: {expectedType.Name}.", innerException)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException" /> class.
+        /// </summary>
         /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
         protected UnexpectedEnvironmentVariableTypeException(SerializationInfo info, StreamingContext context)

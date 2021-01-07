@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{3F9A73C8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByteDev.Configuration.Environment", "src\ByteDev.Configuration.Environment\ByteDev.Configuration.Environment.csproj", "{4885C26C-08F7-477F-976A-8BCC86DDAF64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByteDev.Configuration.Environment.IntTests", "tests\ByteDev.Configuration.Environment.IntTests\ByteDev.Configuration.Environment.IntTests.csproj", "{7A0D1DF9-1A36-4DA9-8E39-B5D41423334E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByteDev.Configuration.Environment.UnitTests", "tests\ByteDev.Configuration.Environment.UnitTests\ByteDev.Configuration.Environment.UnitTests.csproj", "{E5E4C201-DD04-435D-89B4-F18595ADC35A}"
 EndProject
 Global
@@ -33,10 +31,6 @@ Global
 		{4885C26C-08F7-477F-976A-8BCC86DDAF64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4885C26C-08F7-477F-976A-8BCC86DDAF64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4885C26C-08F7-477F-976A-8BCC86DDAF64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A0D1DF9-1A36-4DA9-8E39-B5D41423334E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A0D1DF9-1A36-4DA9-8E39-B5D41423334E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A0D1DF9-1A36-4DA9-8E39-B5D41423334E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A0D1DF9-1A36-4DA9-8E39-B5D41423334E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5E4C201-DD04-435D-89B4-F18595ADC35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5E4C201-DD04-435D-89B4-F18595ADC35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5E4C201-DD04-435D-89B4-F18595ADC35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,7 +40,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7A0D1DF9-1A36-4DA9-8E39-B5D41423334E} = {E0485F4D-842B-4F43-A33D-7E3CBA45D310}
 		{E5E4C201-DD04-435D-89B4-F18595ADC35A} = {E0485F4D-842B-4F43-A33D-7E3CBA45D310}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

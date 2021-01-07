@@ -8,8 +8,8 @@
     <owners>Paul Stanley</owners>
     <copyright>Copyright 2020</copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Library to help when using environment variables.</description>
-    <tags>environment variables configuration settings</tags>
+    <description>Library to help when accessing environment variables.</description>
+    <tags>environment variables configuration settings config</tags>
     <projectUrl>https://github.com/ByteDev/ByteDev.Configuration.Environment</projectUrl>
     <icon>images\icon.png</icon>
     <license type="file">LICENSE</license>

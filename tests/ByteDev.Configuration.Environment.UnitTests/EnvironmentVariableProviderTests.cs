@@ -114,6 +114,17 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 Assert.That(value, Is.EqualTo("TestValue2"));
             }
+
+            [Test]
+            public void WhenVarExists_AndValueNull_ThenDelete()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "TestValue");
+                _sut.Set(name, null);
+
+                Assert.That(_sut.Exists(name), Is.False);
+            }
         }
 
         [TestFixture]
@@ -201,7 +212,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             }
 
             [Test]
-            public void WhenVarExists_AndNotBool_ThenThrowException()
+            public void WhenVarExists_AndIsNotBool_ThenThrowException()
             {
                 var name = GetName();
 
@@ -211,7 +222,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             }
 
             [Test]
-            public void WhenVarExists_AndBool_ThenReturnValue()
+            public void WhenVarExists_AndIsBool_ThenReturnValue()
             {
                 var name = GetName();
 
@@ -243,10 +254,22 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 Assert.That(result, Is.True);
             }
 
+            [Test]
+            public void WhenVarExists_AndIsNotBool_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotBool");
+
+                var result = _sut.GetBoolOrDefault(name, true);
+
+                Assert.That(result, Is.True);
+            }
+
             [TestCase("true")]
             [TestCase("True")]
             [TestCase("TRUE")]
-            public void WhenVarExists_ThenReturnValue(string value)
+            public void WhenVarExists_AndIsBool_ThenReturnValue(string value)
             {
                 var name = GetName();
 
@@ -255,6 +278,177 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 var result = _sut.GetBoolOrDefault(name);
                 
                 Assert.That(result, Is.True);
+            }
+        }
+
+        [TestFixture]
+        public class GetInt : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetInt(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetInt(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotInt_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotInt");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetInt(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsInt_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 10);
+
+                var result = _sut.GetInt(name);
+                
+                Assert.That(result, Is.EqualTo(10));
+            }
+        }
+
+        [TestFixture]
+        public class GetIntOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetIntOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetIntOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotInt_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotInt");
+
+                var result = _sut.GetIntOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [TestCase("-1", -1)]
+            [TestCase("0", 0)]
+            [TestCase("1", 1)]
+            [TestCase("10", 10)]
+            public void WhenVarExists_AndIsBool_ThenReturnValue(string value, int expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetIntOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
+        public class GetUri : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetUri(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetUri(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotUri_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotUri");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetUri(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsUri_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "http://www.google.com/");
+
+                var result = _sut.GetUri(name);
+                
+                Assert.That(result.AbsoluteUri, Is.EqualTo("http://www.google.com/"));
+            }
+        }
+
+        [TestFixture]
+        public class GetGuid : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetGuid(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetGuid(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotUri_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotGuid");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetGuid(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsUri_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "38fafb60-a70e-4140-a186-acf4a5f1dea8");
+
+                var result = _sut.GetGuid(name);
+                
+                Assert.That(result, Is.EqualTo(new Guid("38fafb60-a70e-4140-a186-acf4a5f1dea8")));
             }
         }
 

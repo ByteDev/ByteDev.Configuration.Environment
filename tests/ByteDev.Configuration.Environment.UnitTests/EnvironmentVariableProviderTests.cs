@@ -354,17 +354,132 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 Assert.That(result, Is.EqualTo(5));
             }
 
+            [Test]
+            public void WhenVarExists_AndIsOutOfBounds_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "2147483648");  // int.Max == 2147483647
+
+                var result = _sut.GetIntOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [TestCase("-2147483648", -2147483648)]
             [TestCase("-1", -1)]
             [TestCase("0", 0)]
             [TestCase("1", 1)]
-            [TestCase("10", 10)]
-            public void WhenVarExists_AndIsBool_ThenReturnValue(string value, int expected)
+            [TestCase("2147483647", 2147483647)]
+            public void WhenVarExists_AndIsInt_ThenReturnValue(string value, int expected)
             {
                 var name = GetName();
 
                 _sut.Set(name, value);
 
                 var result = _sut.GetIntOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
+        public class GetLong : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetLong(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetLong(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotLong_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotLong");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetLong(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsLong_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 10);
+
+                var result = _sut.GetLong(name);
+                
+                Assert.That(result, Is.EqualTo(10));
+            }
+        }
+
+        [TestFixture]
+        public class GetLongOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetLongOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetLongOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotLong_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotLong");
+
+                var result = _sut.GetLongOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsOutOfBounds_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "9223372036854775808");  // long.Max == 9223372036854775807
+
+                var result = _sut.GetLongOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [TestCase("-9223372036854775808", -9223372036854775808)]
+            [TestCase("-1", -1)]
+            [TestCase("0", 0)]
+            [TestCase("1", 1)]
+            [TestCase("9223372036854775807", 9223372036854775807)]
+            public void WhenVarExists_AndIsLong_ThenReturnValue(string value, long expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetLongOrDefault(name);
                 
                 Assert.That(result, Is.EqualTo(expected));
             }

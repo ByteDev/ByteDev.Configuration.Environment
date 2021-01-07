@@ -32,6 +32,8 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 - GetGuid
 - GetInt
 - GetIntOrDefault
+- GetLong
+- GetLongOrDefault
 - GetUri
 - GetString
 - GetStringOrDefault

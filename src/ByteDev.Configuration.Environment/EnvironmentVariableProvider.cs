@@ -187,6 +187,43 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
+        /// Retrieve an environment variable as a long. If it does not exist or it's value cannot be cast
+        /// then an exception will be thrown.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a long.</exception>
+        public long GetLong(string name)
+        {
+            var value = GetString(name);
+
+            if (long.TryParse(value, out var result))
+                return result;
+
+            throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(long));
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a long. If it does not exist or it's value cannot be cast 
+        /// then the <paramref name="defaultValue" /> will be returned.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        public long GetLongOrDefault(string name, long defaultValue = 0)
+        {
+            var value = GetStringOrDefault(name);
+
+            if (long.TryParse(value, out var result))
+                return result;
+
+            return defaultValue;
+        }
+
+        /// <summary>
         /// Retrieve an environment variable as a Uri. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>

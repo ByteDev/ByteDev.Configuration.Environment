@@ -1,5 +1,16 @@
 # Release Notes
 
+## 1.2.0 - 08 January 2021
+
+Breaking changes:
+- (None)
+
+New features:
+- Added missing methods to `IEnvironmentVariableProvider`
+
+Bug fixes / internal changes:
+- (None)
+
 ## 1.1.0 - 08 January 2021
 
 Breaking changes:

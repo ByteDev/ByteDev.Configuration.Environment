@@ -6,7 +6,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
     [TestFixture]
     public class EnvironmentVariableProviderTests
     {
-        private EnvironmentVariableProvider _sut;
+        private IEnvironmentVariableProvider _sut;
 
         [SetUp]
         public void SetUp()

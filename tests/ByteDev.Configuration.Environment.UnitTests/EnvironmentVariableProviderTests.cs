@@ -282,6 +282,207 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
+        public class GetByte : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetByte(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetByte(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotByte_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotByte");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetByte(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsByte_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 10);
+
+                var result = _sut.GetByte(name);
+                
+                Assert.That(result, Is.EqualTo(10));
+            }
+        }
+
+        [TestFixture]
+        public class GetByteOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetByteOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetByteOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotByte_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotByte");
+
+                var result = _sut.GetByteOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsOutOfBounds_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "256");
+
+                var result = _sut.GetByteOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [TestCase("0", 0)]
+            [TestCase("255", 255)]
+            public void WhenVarExists_AndIsByte_ThenReturnValue(string value, byte expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetByteOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
+        public class GetShort : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetShort(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetShort(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotShort_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotShort");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetShort(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsShort_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 10);
+
+                var result = _sut.GetShort(name);
+                
+                Assert.That(result, Is.EqualTo(10));
+            }
+        }
+
+        [TestFixture]
+        public class GetShortOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetShortOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetShortOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotShort_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotShort");
+
+                var result = _sut.GetShortOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsOutOfBounds_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "32768");
+
+                var result = _sut.GetShortOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [TestCase("-32768", -32768)]
+            [TestCase("-1", -1)]
+            [TestCase("0", 0)]
+            [TestCase("1", 1)]
+            [TestCase("32767", 32767)]
+            public void WhenVarExists_AndIsShort_ThenReturnValue(string value, short expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetShortOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
         public class GetInt : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
@@ -480,6 +681,94 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 _sut.Set(name, value);
 
                 var result = _sut.GetLongOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
+        public class GetFloat : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetFloat(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetFloat(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotFloat_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NoteFloat");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetFloat(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsFloat_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 10.1f);
+
+                var result = _sut.GetFloat(name);
+                
+                Assert.That(result, Is.EqualTo(10.1f));
+            }
+        }
+
+        [TestFixture]
+        public class GetFloatOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetFloatOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetFloatOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotFloat_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotFloat");
+
+                var result = _sut.GetFloatOrDefault(name, 5.1f);
+
+                Assert.That(result, Is.EqualTo(5.1f));
+            }
+
+            [TestCase("-1.20", -1.2f)]
+            [TestCase("0", 0)]
+            [TestCase("1.2", 1.2f)]
+            public void WhenVarExists_AndIsDouble_ThenReturnValue(string value, float expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetFloatOrDefault(name);
                 
                 Assert.That(result, Is.EqualTo(expected));
             }

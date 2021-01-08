@@ -150,6 +150,80 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
+        /// Retrieve an environment variable as a byte. If it does not exist or it's value cannot be cast
+        /// then an exception will be thrown.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a byte.</exception>
+        public byte GetByte(string name)
+        {
+            var value = GetString(name);
+
+            if (byte.TryParse(value, out var result))
+                return result;
+
+            throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(byte));
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a byte. If it does not exist or it's value cannot be cast 
+        /// then the <paramref name="defaultValue" /> will be returned.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        public byte GetByteOrDefault(string name, byte defaultValue = 0)
+        {
+            var value = GetStringOrDefault(name);
+
+            if (byte.TryParse(value, out var result))
+                return result;
+
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a short. If it does not exist or it's value cannot be cast
+        /// then an exception will be thrown.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a short.</exception>
+        public short GetShort(string name)
+        {
+            var value = GetString(name);
+
+            if (short.TryParse(value, out var result))
+                return result;
+
+            throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(short));
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a short. If it does not exist or it's value cannot be cast 
+        /// then the <paramref name="defaultValue" /> will be returned.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        public short GetShortOrDefault(string name, short defaultValue = 0)
+        {
+            var value = GetStringOrDefault(name);
+
+            if (short.TryParse(value, out var result))
+                return result;
+
+            return defaultValue;
+        }
+
+        /// <summary>
         /// Retrieve an environment variable as a int. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
@@ -218,6 +292,43 @@ namespace ByteDev.Configuration.Environment
             var value = GetStringOrDefault(name);
 
             if (long.TryParse(value, out var result))
+                return result;
+
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a float. If it does not exist or it's value cannot be cast
+        /// then an exception will be thrown.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a float.</exception>
+        public float GetFloat(string name)
+        {
+            var value = GetString(name);
+
+            if (float.TryParse(value, out var result))
+                return result;
+
+            throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(float));
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a float. If it does not exist or it's value cannot be cast 
+        /// then the <paramref name="defaultValue" /> will be returned.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        public float GetFloatOrDefault(string name, float defaultValue = 0)
+        {
+            var value = GetStringOrDefault(name);
+
+            if (float.TryParse(value, out var result))
                 return result;
 
             return defaultValue;

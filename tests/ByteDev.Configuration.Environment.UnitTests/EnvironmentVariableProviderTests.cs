@@ -486,6 +486,182 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
+        public class GetDouble : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetDouble(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetDouble(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotDouble_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotDouble");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetDouble(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsDouble_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 10.1);
+
+                var result = _sut.GetDouble(name);
+                
+                Assert.That(result, Is.EqualTo(10.1));
+            }
+        }
+
+        [TestFixture]
+        public class GetDoubleOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetDoubleOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetDoubleOrDefault(name, 5);
+
+                Assert.That(result, Is.EqualTo(5));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotDouble_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotDouble");
+
+                var result = _sut.GetDoubleOrDefault(name, 5.1);
+
+                Assert.That(result, Is.EqualTo(5.1));
+            }
+
+            [TestCase("-1.20", -1.2)]
+            [TestCase("0", 0)]
+            [TestCase("1.2", 1.2)]
+            public void WhenVarExists_AndIsDouble_ThenReturnValue(string value, double expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetDoubleOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
+        public class GetDecimal : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetDecimal(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetDecimal(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotDecimal_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotDecimal");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetDecimal(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsDecimal_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, decimal.MaxValue);
+
+                var result = _sut.GetDecimal(name);
+                
+                Assert.That(result, Is.EqualTo(decimal.MaxValue));
+            }
+        }
+
+        [TestFixture]
+        public class GetDecimalOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetDecimalOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetDecimalOrDefault(name, decimal.MinValue);
+
+                Assert.That(result, Is.EqualTo(decimal.MinValue));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotDecimal_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotDecimal");
+
+                var result = _sut.GetDecimalOrDefault(name, decimal.MinValue);
+
+                Assert.That(result, Is.EqualTo(decimal.MinValue));
+            }
+
+            [TestCase("-1.20", -1.2)]
+            [TestCase("0", 0)]
+            [TestCase("1.23456", 1.23456)]
+            public void WhenVarExists_AndIsDecimal_ThenReturnValue(string value, decimal expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetDecimalOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        [TestFixture]
         public class GetUri : EnvironmentVariableProviderTests
         {
             [TestCase(null)]

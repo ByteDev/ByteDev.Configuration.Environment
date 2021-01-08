@@ -8,6 +8,10 @@ Breaking changes:
 New features:
 - Added `EnvironmentVariableProvider.GetLong`
 - Added `EnvironmentVariableProvider.GetLongOrDefault`
+- Added `EnvironmentVariableProvider.GetDouble`
+- Added `EnvironmentVariableProvider.GetDoubleOrDefault`
+- Added `EnvironmentVariableProvider.GetDecimal`
+- Added `EnvironmentVariableProvider.GetDecimalOrDefault`
 
 Bug fixes / internal changes:
 - (None)

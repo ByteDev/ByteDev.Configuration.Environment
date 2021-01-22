@@ -453,5 +453,30 @@ namespace ByteDev.Configuration.Environment
                 throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(Guid), ex);
             }
         }
+
+        /// <summary>
+        /// Retrieve an environment variable as a enum. The environment variable value can be stored as the
+        /// string (name) enum representation or the defined number value.
+        /// </summary>
+        /// <typeparam name="TEnum">Tyoe of enum.</typeparam>
+        /// <param name="name">Name of environment variable.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a defined name or number value of the enum.</exception>
+        public TEnum GetEnum<TEnum>(string name) where TEnum : struct, Enum
+        {
+            var value = GetString(name);
+
+            if (Enum.TryParse<TEnum>(value, out var result))
+            {
+                if (Enum.IsDefined(typeof(TEnum), result))
+                {
+                    return result;
+                }
+            }
+
+            throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(TEnum));
+        }
     }
 }

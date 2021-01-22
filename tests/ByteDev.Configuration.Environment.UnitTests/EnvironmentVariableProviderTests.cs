@@ -1032,6 +1032,68 @@ namespace ByteDev.Configuration.Environment.UnitTests
             }
         }
 
+        [TestFixture]
+        public class GetEnum : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetEnum<DummyColor>(name));
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetEnum<DummyColor>(name));
+            }
+
+            [TestCase("Reddish")]
+            [TestCase("red")]
+            [TestCase("RED")]
+            [TestCase(-1)]
+            [TestCase(0)]
+            [TestCase(3)]
+            [TestCase("3")]
+            public void WhenVarExists_AndIsNotEnum_ThenThrowException(object value)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetEnum<DummyColor>(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsEnumString_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "Blue");
+
+                var result = _sut.GetEnum<DummyColor>(name);
+
+                Assert.That(result, Is.EqualTo(DummyColor.Blue));
+            }
+
+            [TestCase(1, DummyColor.Red)]
+            [TestCase(2, DummyColor.Blue)]
+            [TestCase("1", DummyColor.Red)]
+            [TestCase("2", DummyColor.Blue)]
+            public void WhenVarExists_AndIsEnumNumber_ThenReturnValue(object value, DummyColor expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetEnum<DummyColor>(name);
+
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
         private static string GetName()
         {
             return "IntTest" + Guid.NewGuid().ToString().Replace("-", string.Empty);

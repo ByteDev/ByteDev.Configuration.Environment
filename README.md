@@ -52,35 +52,42 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 
 ```csharp
 // Initialize provider with an optional target level
+
 IEnvironmentVariableProvider provider = new EnvironmentVariableProvider(EnvironmentVariableTarget.Process);
 ```
 
 ```csharp
+// Example string value
+
 provider.Set("MyVar1", "Value1");
 
-var exists = provider.Exists("MyVar1");         // exists == true
+var exists = provider.Exists("MyVar1");     // exists == true
 
-string val1 = provider.GetString("MyVar1");     // val1 == "Value1"
+string s1 = provider.GetString("MyVar1");   // s1 == "Value1"
 
-string val2 = provider.GetString("MyVar2");     // throws EnvironmentVariableNotExistException
+string s2 = provider.GetString("MyVar2");   // throws EnvironmentVariableNotExistException
 
-string val3 = provider.GetStringOrDefault("MyVar3");                 // val3 == null
+string s3 = provider.GetStringOrDefault("MyVar1");            // s3 == "Value1"
 
-string val4 = provider.GetStringOrDefault("MyVar3", "myDefault");    // val3 == "myDefault"
+string s4 = provider.GetStringOrDefault("MyVar2");            // s4 == null
+
+string s5 = provider.GetStringOrDefault("MyVar2", "myValue"); // s5 == "myValue"
 
 provider.Delete("MyVar1");
 
-provider.Delete("DoesNotExist");                // Does not throw exception
+provider.Delete("MyVar2");   // Does not throw exception when not exist
 ```
 
 ```csharp
+// Example URI value
+
 provider.Set("MyUri1", "http://www.google.com/");
 provider.Set("MyUri2", "ThisIsNotUri");
 
-Uri uri0 = provider.GetUri("MyUri0");       // throws EnvironmentVariableNotExistException
+Uri uri0 = provider.GetUri("MyUri0");   // throws EnvironmentVariableNotExistException
 
-Uri uri1 = provider.GetUri("MyUri1");       // uri1 == new Uri("http://www.google.com/")
+Uri uri1 = provider.GetUri("MyUri1");   // uri1 == new Uri("http://www.google.com/")
 
-Uri uri2 = provider.GetUri("MyUri2");       // throws UnexpectedEnvironmentVariableTypeException
+Uri uri2 = provider.GetUri("MyUri2");   // throws UnexpectedEnvironmentVariableTypeException
 ```
 

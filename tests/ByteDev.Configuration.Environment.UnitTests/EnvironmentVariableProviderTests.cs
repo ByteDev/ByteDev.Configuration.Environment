@@ -212,17 +212,17 @@ namespace ByteDev.Configuration.Environment.UnitTests
             }
 
             [Test]
-            public void WhenVarExists_AndIsNotBool_ThenThrowException()
+            public void WhenVarExists_AndIsNotChar_ThenThrowException()
             {
                 var name = GetName();
 
-                _sut.Set(name, "NotBool");
+                _sut.Set(name, "NotChar");
 
                 Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetChar(name));
             }
 
             [Test]
-            public void WhenVarExists_AndIsBool_ThenReturnValue()
+            public void WhenVarExists_AndIsChar_ThenReturnValue()
             {
                 var name = GetName();
 

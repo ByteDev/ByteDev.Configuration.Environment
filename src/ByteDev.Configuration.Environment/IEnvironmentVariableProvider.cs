@@ -50,6 +50,17 @@ namespace ByteDev.Configuration.Environment
         string GetStringOrDefault(string name, string defaultValue = null);
 
         /// <summary>
+        /// Retrieve an environment variable as a char. If it does not exist or it's value cannot be cast
+        /// then an exception will be thrown.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a char.</exception>
+        char GetChar(string name);
+
+        /// <summary>
         /// Retrieve an environment variable as a bool. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
@@ -92,7 +103,7 @@ namespace ByteDev.Configuration.Environment
         byte GetByteOrDefault(string name, byte defaultValue = 0);
 
         /// <summary>
-        /// Retrieve an environment variable as a short. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a short (System.Int16). If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -103,7 +114,7 @@ namespace ByteDev.Configuration.Environment
         short GetShort(string name);
 
         /// <summary>
-        /// Retrieve an environment variable as a short. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a short (System.Int16). If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -113,7 +124,7 @@ namespace ByteDev.Configuration.Environment
         short GetShortOrDefault(string name, short defaultValue = 0);
 
         /// <summary>
-        /// Retrieve an environment variable as a int. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a int (System.Int32). If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -124,7 +135,7 @@ namespace ByteDev.Configuration.Environment
         int GetInt(string name);
 
         /// <summary>
-        /// Retrieve an environment variable as a int. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a int (System.Int32). If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -134,7 +145,7 @@ namespace ByteDev.Configuration.Environment
         int GetIntOrDefault(string name, int defaultValue = 0);
 
         /// <summary>
-        /// Retrieve an environment variable as a long. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a long (System.Int64). If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -145,7 +156,7 @@ namespace ByteDev.Configuration.Environment
         long GetLong(string name);
 
         /// <summary>
-        /// Retrieve an environment variable as a long. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a long (System.Int64). If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -155,7 +166,7 @@ namespace ByteDev.Configuration.Environment
         long GetLongOrDefault(string name, long defaultValue = 0);
 
         /// <summary>
-        /// Retrieve an environment variable as a float. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a float (System.Single). If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -166,7 +177,7 @@ namespace ByteDev.Configuration.Environment
         float GetFloat(string name);
 
         /// <summary>
-        /// Retrieve an environment variable as a float. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a float (System.Single). If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -243,7 +254,7 @@ namespace ByteDev.Configuration.Environment
         /// Retrieve an environment variable as a enum. The environment variable value can be stored as the
         /// string (name) enum representation or the defined number value.
         /// </summary>
-        /// <typeparam name="TEnum">Tyoe of enum.</typeparam>
+        /// <typeparam name="TEnum">Type of enum.</typeparam>
         /// <param name="name">Name of environment variable.</param>
         /// <returns>Environment variable's value.</returns>
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>

@@ -194,6 +194,47 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
+        public class GetChar : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetChar(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetChar(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotBool_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotBool");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetChar(name));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsBool_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 'Z');
+
+                var result = _sut.GetChar(name);
+                
+                Assert.That(result, Is.EqualTo('Z'));
+            }
+        }
+
+        [TestFixture]
         public class GetBool : EnvironmentVariableProviderTests
         {
             [TestCase(null)]

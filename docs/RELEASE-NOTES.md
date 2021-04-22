@@ -1,5 +1,16 @@
 # Release Notes
 
+## 1.4.0 - 22 April 2021
+
+Breaking changes:
+- (None)
+
+New features:
+- Added `EnvironmentVariableProvider.GetChar`.
+
+Bug fixes / internal changes:
+- (None)
+
 ## 1.3.0 - 22 January 2021
 
 Breaking changes:

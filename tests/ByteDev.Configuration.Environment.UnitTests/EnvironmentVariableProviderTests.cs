@@ -280,13 +280,13 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
-        public class GetBool : EnvironmentVariableProviderTests
+        public class GetBoolean : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetBool(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetBoolean(name));    
             }
 
             [Test]
@@ -294,7 +294,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetBool(name));
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetBoolean(name));
             }
 
             [Test]
@@ -304,7 +304,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotBool");
 
-                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetBool(name));
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetBoolean(name));
             }
 
             [Test]
@@ -314,20 +314,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, true);
 
-                var result = _sut.GetBool(name);
+                var result = _sut.GetBoolean(name);
                 
                 Assert.That(result, Is.True);
             }
         }
 
         [TestFixture]
-        public class GetBoolOrDefault : EnvironmentVariableProviderTests
+        public class GetBooleanOrDefault : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetBoolOrDefault(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetBooleanOrDefault(name));    
             }
 
             [Test]
@@ -335,7 +335,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                var result = _sut.GetBoolOrDefault(name, true);
+                var result = _sut.GetBooleanOrDefault(name, true);
 
                 Assert.That(result, Is.True);
             }
@@ -347,7 +347,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotBool");
 
-                var result = _sut.GetBoolOrDefault(name, true);
+                var result = _sut.GetBooleanOrDefault(name, true);
 
                 Assert.That(result, Is.True);
             }
@@ -361,7 +361,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, value);
 
-                var result = _sut.GetBoolOrDefault(name);
+                var result = _sut.GetBooleanOrDefault(name);
                 
                 Assert.That(result, Is.True);
             }
@@ -467,13 +467,13 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
-        public class GetShort : EnvironmentVariableProviderTests
+        public class GetInt16 : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetShort(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetInt16(name));    
             }
 
             [Test]
@@ -481,7 +481,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetShort(name));
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetInt16(name));
             }
 
             [Test]
@@ -491,7 +491,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotShort");
 
-                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetShort(name));
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetInt16(name));
             }
 
             [Test]
@@ -501,20 +501,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, 10);
 
-                var result = _sut.GetShort(name);
+                var result = _sut.GetInt16(name);
                 
                 Assert.That(result, Is.EqualTo(10));
             }
         }
 
         [TestFixture]
-        public class GetShortOrDefault : EnvironmentVariableProviderTests
+        public class GetInt16OrDefault : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetShortOrDefault(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetInt16OrDefault(name));    
             }
 
             [Test]
@@ -522,7 +522,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                var result = _sut.GetShortOrDefault(name, 5);
+                var result = _sut.GetInt16OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -534,7 +534,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotShort");
 
-                var result = _sut.GetShortOrDefault(name, 5);
+                var result = _sut.GetInt16OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -546,7 +546,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "32768");
 
-                var result = _sut.GetShortOrDefault(name, 5);
+                var result = _sut.GetInt16OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -562,20 +562,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, value);
 
-                var result = _sut.GetShortOrDefault(name);
+                var result = _sut.GetInt16OrDefault(name);
                 
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
 
         [TestFixture]
-        public class GetInt : EnvironmentVariableProviderTests
+        public class GetInt32 : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetInt(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetInt32(name));    
             }
 
             [Test]
@@ -583,7 +583,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetInt(name));
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetInt32(name));
             }
 
             [Test]
@@ -593,7 +593,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotInt");
 
-                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetInt(name));
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetInt32(name));
             }
 
             [Test]
@@ -603,20 +603,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, 10);
 
-                var result = _sut.GetInt(name);
+                var result = _sut.GetInt32(name);
                 
                 Assert.That(result, Is.EqualTo(10));
             }
         }
 
         [TestFixture]
-        public class GetIntOrDefault : EnvironmentVariableProviderTests
+        public class GetInt32OrDefault : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetIntOrDefault(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetInt32OrDefault(name));    
             }
 
             [Test]
@@ -624,7 +624,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                var result = _sut.GetIntOrDefault(name, 5);
+                var result = _sut.GetInt32OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -636,7 +636,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotInt");
 
-                var result = _sut.GetIntOrDefault(name, 5);
+                var result = _sut.GetInt32OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -648,7 +648,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "2147483648");  // int.Max == 2147483647
 
-                var result = _sut.GetIntOrDefault(name, 5);
+                var result = _sut.GetInt32OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -664,20 +664,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, value);
 
-                var result = _sut.GetIntOrDefault(name);
+                var result = _sut.GetInt32OrDefault(name);
                 
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
 
         [TestFixture]
-        public class GetLong : EnvironmentVariableProviderTests
+        public class GetInt64 : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetLong(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetInt64(name));    
             }
 
             [Test]
@@ -685,7 +685,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetLong(name));
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetInt64(name));
             }
 
             [Test]
@@ -695,7 +695,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotLong");
 
-                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetLong(name));
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetInt64(name));
             }
 
             [Test]
@@ -705,20 +705,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, 10);
 
-                var result = _sut.GetLong(name);
+                var result = _sut.GetInt64(name);
                 
                 Assert.That(result, Is.EqualTo(10));
             }
         }
 
         [TestFixture]
-        public class GetLongOrDefault : EnvironmentVariableProviderTests
+        public class GetInt64OrDefault : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetLongOrDefault(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetInt64OrDefault(name));    
             }
 
             [Test]
@@ -726,7 +726,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                var result = _sut.GetLongOrDefault(name, 5);
+                var result = _sut.GetInt64OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -738,7 +738,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotLong");
 
-                var result = _sut.GetLongOrDefault(name, 5);
+                var result = _sut.GetInt64OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -750,7 +750,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "9223372036854775808");  // long.Max == 9223372036854775807
 
-                var result = _sut.GetLongOrDefault(name, 5);
+                var result = _sut.GetInt64OrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -766,20 +766,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, value);
 
-                var result = _sut.GetLongOrDefault(name);
+                var result = _sut.GetInt64OrDefault(name);
                 
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
 
         [TestFixture]
-        public class GetFloat : EnvironmentVariableProviderTests
+        public class GetSingle : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetFloat(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetSingle(name));    
             }
 
             [Test]
@@ -787,7 +787,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetFloat(name));
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetSingle(name));
             }
 
             [Test]
@@ -797,7 +797,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NoteFloat");
 
-                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetFloat(name));
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetSingle(name));
             }
 
             [Test]
@@ -807,20 +807,20 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, 10.1f);
 
-                var result = _sut.GetFloat(name);
+                var result = _sut.GetSingle(name);
                 
                 Assert.That(result, Is.EqualTo(10.1f));
             }
         }
 
         [TestFixture]
-        public class GetFloatOrDefault : EnvironmentVariableProviderTests
+        public class GetSingleOrDefault : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
             [TestCase("")]
             public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
             {
-                Assert.Throws<ArgumentException>(() => _sut.GetFloatOrDefault(name));    
+                Assert.Throws<ArgumentException>(() => _sut.GetSingleOrDefault(name));    
             }
 
             [Test]
@@ -828,7 +828,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
             {
                 var name = GetName();
 
-                var result = _sut.GetFloatOrDefault(name, 5);
+                var result = _sut.GetSingleOrDefault(name, 5);
 
                 Assert.That(result, Is.EqualTo(5));
             }
@@ -840,7 +840,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, "NotFloat");
 
-                var result = _sut.GetFloatOrDefault(name, 5.1f);
+                var result = _sut.GetSingleOrDefault(name, 5.1f);
 
                 Assert.That(result, Is.EqualTo(5.1f));
             }
@@ -854,7 +854,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
 
                 _sut.Set(name, value);
 
-                var result = _sut.GetFloatOrDefault(name);
+                var result = _sut.GetSingleOrDefault(name);
                 
                 Assert.That(result, Is.EqualTo(expected));
             }

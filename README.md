@@ -27,8 +27,8 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 `EnvironmentVariableProvider` has the following methods:
 - Delete
 - Exists
-- GetBool
-- GetBoolOrDefault
+- GetBoolean
+- GetBooleanOrDefault
 - GetByte
 - GetByteOrDefault
 - GetChar
@@ -38,24 +38,24 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 - GetDouble
 - GetDoubleOrDefault
 - GetEnum
-- GetFloat
-- GetFloatOrDefault
 - GetGuid
-- GetInt
-- GetIntOrDefault
-- GetLong
-- GetLongOrDefault
+- GetInt16
+- GetInt16OrDefault
+- GetInt32
+- GetInt32OrDefault
+- GetInt64
+- GetInt64OrDefault
 - GetUri
-- GetShort
-- GetShortOrDefault
+- GetSingle
+- GetSingleOrDefault
 - GetString
 - GetStringOrDefault
 - Set
 
 ```csharp
-// Initialize provider with an optional target level
+// Initialize provider with an optional target level (Process by default)
 
-IEnvironmentVariableProvider provider = new EnvironmentVariableProvider(EnvironmentVariableTarget.Process);
+IEnvironmentVariableProvider provider = new EnvironmentVariableProvider(EnvironmentVariableTarget.User);
 ```
 
 ```csharp

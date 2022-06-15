@@ -1,9 +1,18 @@
 # Release Notes
 
-## 1.5.0 - ?
+## 2.0.0 - ?
 
 Breaking changes:
-- (None)
+- Renamed `EnvironmentVariableProvider.GetShort` to `GetInt16`.
+- Renamed `EnvironmentVariableProvider.GetShortOrDefault` to `GetInt16OrDefault`.
+- Renamed `EnvironmentVariableProvider.GetInt` to `GetInt32`.
+- Renamed `EnvironmentVariableProvider.GetIntOrDefault` to `GetInt32OrDefault`.
+- Renamed `EnvironmentVariableProvider.GetLong` to `GetInt64`.
+- Renamed `EnvironmentVariableProvider.GetLongOrDefault` to `GetInt64OrDefault`.
+- Renamed `EnvironmentVariableProvider.GetFloat` to `GetSingle`.
+- Renamed `EnvironmentVariableProvider.GetFloatOrDefault` to `GetSingleOrDefault`
+- Renamed `EnvironmentVariableProvider.GetBool` to `GetBoolean`.
+- Renamed `EnvironmentVariableProvider.GetBoolOrDefault` to `GetBooleanOrDefault`
 
 New features:
 - Added `EnvironmentVariableProvider.GetCharOrDefault` method.

@@ -27,7 +27,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Delete an environment variable. If it does not exist then no
+        /// Delete an environment variable. If the variable does not exist then no
         /// exception is thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -53,7 +53,7 @@ namespace ByteDev.Configuration.Environment
 
         /// <summary>
         /// Set an environment variable. If it does not exist it will be created otherwise
-        /// it's value will be updated.
+        /// it's value will be updated. If the value is null then the variable will be deleted.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
         /// <param name="value">Environment variable's new value.</param>
@@ -67,7 +67,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a string. If it does not exist then an
+        /// Retrieve an environment variable as a String. If it does not exist then an
         /// exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -90,7 +90,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a string. If it does not exist then the
+        /// Retrieve an environment variable as a String. If it does not exist then the
         /// <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -113,7 +113,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a char. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Char. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -132,7 +132,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a char. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Char. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -150,7 +150,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a bool. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Boolean. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -158,7 +158,7 @@ namespace ByteDev.Configuration.Environment
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a bool.</exception>
-        public bool GetBool(string name)
+        public bool GetBoolean(string name)
         {
             var value = GetString(name);
 
@@ -169,14 +169,14 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a bool. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Boolean. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
         /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
         /// <returns>Environment variable's value.</returns>
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
-        public bool GetBoolOrDefault(string name, bool defaultValue = false)
+        public bool GetBooleanOrDefault(string name, bool defaultValue = false)
         {
             var value = GetStringOrDefault(name);
 
@@ -187,7 +187,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a byte. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Byte. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -206,7 +206,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a byte. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Byte. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -224,7 +224,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a short (System.Int16). If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Int16. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -232,7 +232,7 @@ namespace ByteDev.Configuration.Environment
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a short.</exception>
-        public short GetShort(string name)
+        public short GetInt16(string name)
         {
             var value = GetString(name);
 
@@ -243,14 +243,14 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a short (System.Int16). If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Int16. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
         /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
         /// <returns>Environment variable's value.</returns>
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
-        public short GetShortOrDefault(string name, short defaultValue = 0)
+        public short GetInt16OrDefault(string name, short defaultValue = 0)
         {
             var value = GetStringOrDefault(name);
 
@@ -261,7 +261,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a int (System.Int32). If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Int32. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -269,7 +269,7 @@ namespace ByteDev.Configuration.Environment
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a int.</exception>
-        public int GetInt(string name)
+        public int GetInt32(string name)
         {
             var value = GetString(name);
 
@@ -280,14 +280,14 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a int (System.Int32). If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Int32. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
         /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
         /// <returns>Environment variable's value.</returns>
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
-        public int GetIntOrDefault(string name, int defaultValue = 0)
+        public int GetInt32OrDefault(string name, int defaultValue = 0)
         {
             var value = GetStringOrDefault(name);
 
@@ -298,7 +298,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a long (System.Int64). If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Int64. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -306,7 +306,7 @@ namespace ByteDev.Configuration.Environment
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a long.</exception>
-        public long GetLong(string name)
+        public long GetInt64(string name)
         {
             var value = GetString(name);
 
@@ -317,14 +317,14 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a long (System.Int64). If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Int64. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
         /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
         /// <returns>Environment variable's value.</returns>
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
-        public long GetLongOrDefault(string name, long defaultValue = 0)
+        public long GetInt64OrDefault(string name, long defaultValue = 0)
         {
             var value = GetStringOrDefault(name);
 
@@ -335,7 +335,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a float (System.Single). If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Single. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -343,7 +343,7 @@ namespace ByteDev.Configuration.Environment
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
         /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a float.</exception>
-        public float GetFloat(string name)
+        public float GetSingle(string name)
         {
             var value = GetString(name);
 
@@ -354,14 +354,14 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a float (System.Single). If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Single. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
         /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
         /// <returns>Environment variable's value.</returns>
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
-        public float GetFloatOrDefault(string name, float defaultValue = 0)
+        public float GetSingleOrDefault(string name, float defaultValue = 0)
         {
             var value = GetStringOrDefault(name);
 
@@ -372,7 +372,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a double. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Double. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -383,7 +383,7 @@ namespace ByteDev.Configuration.Environment
         public double GetDouble(string name)
         {
             var value = GetString(name);
-
+            
             if (double.TryParse(value, out var result))
                 return result;
 
@@ -391,7 +391,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a double. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Double. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -409,7 +409,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a decimal. If it does not exist or it's value cannot be cast
+        /// Retrieve an environment variable as a Decimal. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -420,7 +420,7 @@ namespace ByteDev.Configuration.Environment
         public decimal GetDecimal(string name)
         {
             var value = GetString(name);
-
+            
             if (decimal.TryParse(value, out var result))
                 return result;
 
@@ -428,7 +428,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a decimal. If it does not exist or it's value cannot be cast 
+        /// Retrieve an environment variable as a Decimal. If it does not exist or it's value cannot be cast 
         /// then the <paramref name="defaultValue" /> will be returned.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>
@@ -492,7 +492,7 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
-        /// Retrieve an environment variable as a enum. The environment variable value can be stored as the
+        /// Retrieve an environment variable as a Enum. The environment variable value can be stored as the
         /// string (name) enum representation or the defined number value.
         /// </summary>
         /// <typeparam name="TEnum">Type of enum.</typeparam>

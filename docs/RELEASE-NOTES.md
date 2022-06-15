@@ -1,6 +1,6 @@
 # Release Notes
 
-## 2.0.0 - ?
+## 2.0.0 - 15 June 2022
 
 Breaking changes:
 - Renamed `EnvironmentVariableProvider.GetShort` to `GetInt16`.

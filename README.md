@@ -26,6 +26,7 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 
 `EnvironmentVariableProvider` has the following methods:
 - Delete
+- DeleteOrThrow
 - Exists
 - GetBoolean
 - GetBooleanOrDefault

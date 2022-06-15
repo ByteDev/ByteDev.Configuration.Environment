@@ -48,6 +48,38 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
+        public class DeleteOrThrow : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.DeleteOrThrow(name));    
+            }
+
+            [Test]
+            public void WhenVarExists_ThenDelete()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "TestValue");
+
+                _sut.DeleteOrThrow(name);
+                
+                Assert.That(_sut.Exists(name), Is.False);
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                var ex = Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.DeleteOrThrow(name));
+                Assert.That(ex.Message, Is.EqualTo($"Environment variable: '{name}' does not exist."));
+            }
+        }
+
+        [TestFixture]
         public class Exists : EnvironmentVariableProviderTests
         {
             [TestCase(null)]

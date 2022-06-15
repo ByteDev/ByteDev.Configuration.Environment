@@ -41,6 +41,24 @@ namespace ByteDev.Configuration.Environment
         }
 
         /// <summary>
+        /// Delete an environment variable. If the variable does not exist then an exception
+        /// of type <see cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException" /> is thrown.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        public void DeleteOrThrow(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Name was null or empty.", nameof(name));
+
+            if (!Exists(name))
+                throw new EnvironmentVariableNotExistException($"Environment variable: '{name}' does not exist.");
+
+            Set(name, null);
+        }
+
+        /// <summary>
         /// Determines if an environment variable exists.
         /// </summary>
         /// <param name="name">Name of environment variable.</param>

@@ -16,6 +16,7 @@ Breaking changes:
 
 New features:
 - Added `EnvironmentVariableProvider.GetCharOrDefault` method.
+- Added `EnvironmentVariableProvider.DeleteOrThrow` method.
 
 Bug fixes / internal changes:
 - (None)

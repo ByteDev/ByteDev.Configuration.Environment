@@ -39,6 +39,7 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 - GetDouble
 - GetDoubleOrDefault
 - GetEnum
+- GetEnumOrDefault
 - GetGuid
 - GetInt16
 - GetInt16OrDefault

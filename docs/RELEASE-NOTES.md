@@ -15,8 +15,9 @@ Breaking changes:
 - Renamed `EnvironmentVariableProvider.GetBoolOrDefault` to `GetBooleanOrDefault`
 
 New features:
-- Added `EnvironmentVariableProvider.GetCharOrDefault` method.
 - Added `EnvironmentVariableProvider.DeleteOrThrow` method.
+- Added `EnvironmentVariableProvider.GetCharOrDefault` method.
+- Added `EnvironmentVariableProvider.GetEnumOrDefault` method.
 
 Bug fixes / internal changes:
 - (None)

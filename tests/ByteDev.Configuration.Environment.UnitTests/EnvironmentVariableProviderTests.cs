@@ -1217,6 +1217,72 @@ namespace ByteDev.Configuration.Environment.UnitTests
             }
         }
 
+        [TestFixture]
+        public class GetEnumOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetEnumOrDefault(name, DummyColor.Red));
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetEnumOrDefault(name, DummyColor.Red);
+
+                Assert.That(result, Is.EqualTo(DummyColor.Red));
+            }
+
+            [TestCase("Reddish")]
+            [TestCase("red")]
+            [TestCase("RED")]
+            [TestCase(-1)]
+            [TestCase(0)]
+            [TestCase(3)]
+            [TestCase("3")]
+            public void WhenVarExists_AndIsNotEnum_ThenReturnDefault(object value)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetEnumOrDefault(name, DummyColor.Blue);
+
+                Assert.That(result, Is.EqualTo(DummyColor.Blue));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsEnumString_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "Blue");
+
+                var result = _sut.GetEnumOrDefault(name, DummyColor.Red);
+
+                Assert.That(result, Is.EqualTo(DummyColor.Blue));
+            }
+
+            [TestCase(1, DummyColor.Red)]
+            [TestCase(2, DummyColor.Blue)]
+            [TestCase("1", DummyColor.Red)]
+            [TestCase("2", DummyColor.Blue)]
+            public void WhenVarExists_AndIsEnumNumber_ThenReturnValue(object value, DummyColor expected)
+            {
+                var name = GetName();
+
+                _sut.Set(name, value);
+
+                var result = _sut.GetEnumOrDefault(name, DummyColor.Red);
+
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
         private static string GetName()
         {
             return "IntTest" + Guid.NewGuid().ToString().Replace("-", string.Empty);

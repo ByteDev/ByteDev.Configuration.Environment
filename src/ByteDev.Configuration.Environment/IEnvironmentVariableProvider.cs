@@ -61,6 +61,16 @@ namespace ByteDev.Configuration.Environment
         char GetChar(string name);
 
         /// <summary>
+        /// Retrieve an environment variable as a char. If it does not exist or it's value cannot be cast 
+        /// then the <paramref name="defaultValue" /> will be returned.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="defaultValue">Value to return if the environment variable does not exist.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        char GetCharOrDefault(string name, char defaultValue = '\0');
+
+        /// <summary>
         /// Retrieve an environment variable as a bool. If it does not exist or it's value cannot be cast
         /// then an exception will be thrown.
         /// </summary>

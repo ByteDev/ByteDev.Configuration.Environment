@@ -235,6 +235,51 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
+        public class GetCharOrDefault : EnvironmentVariableProviderTests
+        {
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetCharOrDefault(name));    
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetCharOrDefault(name, 'A');
+
+                Assert.That(result, Is.EqualTo('A'));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotChar_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                _sut.Set(name, true);
+
+                var result = _sut.GetCharOrDefault(name, 'A');
+
+                Assert.That(result, Is.EqualTo('A'));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsChar_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, 'Z');
+
+                var result = _sut.GetCharOrDefault(name);
+                
+                Assert.That(result, Is.EqualTo('Z'));
+            }
+        }
+
+        [TestFixture]
         public class GetBool : EnvironmentVariableProviderTests
         {
             [TestCase(null)]
@@ -1060,12 +1105,17 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetGuid(name));
             }
 
-            [Test]
-            public void WhenVarExists_AndIsUri_ThenReturnValue()
+            [TestCase("{38fafb60-a70e-4140-a186-acf4a5f1dea8}")]
+            [TestCase("{38FAFB60-A70E-4140-A186-ACF4A5F1DEA8}")]
+            [TestCase("38fafb60-a70e-4140-a186-acf4a5f1dea8")]
+            [TestCase("38fafb60a70e4140a186acf4a5f1dea8")]
+            [TestCase("38FAFB60-A70E-4140-A186-ACF4A5F1DEA8")]
+            [TestCase("38FAFB60A70E4140A186ACF4A5F1DEA8")]
+            public void WhenVarExists_AndIsUri_ThenReturnValue(string value)
             {
                 var name = GetName();
 
-                _sut.Set(name, "38fafb60-a70e-4140-a186-acf4a5f1dea8");
+                _sut.Set(name, value);
 
                 var result = _sut.GetGuid(name);
                 

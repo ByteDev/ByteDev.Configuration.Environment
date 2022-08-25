@@ -65,7 +65,7 @@ IEnvironmentVariableProvider provider = new EnvironmentVariableProvider(Environm
 
 provider.Set("MyVar1", "Value1");
 
-var exists = provider.Exists("MyVar1");     // exists == true
+bool exists = provider.Exists("MyVar1");    // exists == true
 
 string s1 = provider.GetString("MyVar1");   // s1 == "Value1"
 

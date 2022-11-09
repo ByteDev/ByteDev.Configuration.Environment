@@ -7,6 +7,7 @@ Breaking changes:
 
 New features:
 - Added `EnvironmentVariableProvider.GetDateTime` method.
+- Added `EnvironmentVariableProvider.GetDateTimeOrDefault` method.
 
 Bug fixes / internal changes:
 - (None)

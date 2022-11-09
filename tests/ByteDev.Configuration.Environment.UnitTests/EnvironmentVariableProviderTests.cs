@@ -6,7 +6,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
     [TestFixture]
     public class EnvironmentVariableProviderTests
     {
-        private IEnvironmentVariableProvider _sut;
+        private EnvironmentVariableProvider _sut;
 
         [SetUp]
         public void SetUp()
@@ -1309,12 +1309,15 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetDateTime(name, FormatDate));
             }
 
-            [Test]
-            public void WhenVarExists_AndIsNotInCorrectFormat_ThenThrowException()
+            [TestCase("NotDateTime")]
+            [TestCase("2022011A")]
+            [TestCase("20220132")]
+            [TestCase("2022013")]
+            public void WhenVarExists_AndIsNotInCorrectFormat_ThenThrowException(string format)
             {
                 var name = GetName();
 
-                _sut.Set(name, "NotDateTime");
+                _sut.Set(name, format);
 
                 Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetDateTime(name, FormatDate));
             }
@@ -1327,6 +1330,64 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 _sut.Set(name, "20220110");
 
                 var result = _sut.GetDateTime(name, FormatDate);
+                
+                Assert.That(result, Is.EqualTo(new DateTime(2022, 1, 10)));
+            }
+        }
+
+        [TestFixture]
+        public class GetDateTimeOrDefault : EnvironmentVariableProviderTests
+        {
+            private const string FormatDate = "yyyyMMdd";
+
+            private readonly DateTime DefaultDateTime = DateTime.MinValue;
+
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetDateTimeOrDefault(name, FormatDate, DefaultDateTime));    
+            }
+
+            [Test]
+            public void WhenFormatIsNull_ThenThrowException()
+            {
+                Assert.Throws<ArgumentNullException>(() => _sut.GetDateTimeOrDefault("name", null, DefaultDateTime));
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetDateTimeOrDefault(name, FormatDate, DefaultDateTime);
+
+                Assert.That(result, Is.EqualTo(DefaultDateTime));
+            }
+
+            [TestCase("NotDateTime")]
+            [TestCase("2022011A")]
+            [TestCase("20220132")]
+            [TestCase("2022013")]
+            public void WhenVarExists_AndIsNotInCorrectFormat_ThenReturnDefault(string format)
+            {
+                var name = GetName();
+
+                _sut.Set(name, format);
+
+                var result = _sut.GetDateTimeOrDefault(name, FormatDate, DefaultDateTime);
+
+                Assert.That(result, Is.EqualTo(DefaultDateTime));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsDateTime_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "20220110");
+
+                var result = _sut.GetDateTimeOrDefault(name, FormatDate, DefaultDateTime);
                 
                 Assert.That(result, Is.EqualTo(new DateTime(2022, 1, 10)));
             }

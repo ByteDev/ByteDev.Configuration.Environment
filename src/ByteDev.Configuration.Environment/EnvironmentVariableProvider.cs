@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ByteDev.Configuration.Environment
 {
@@ -560,6 +561,33 @@ namespace ByteDev.Configuration.Environment
             }
 
             return defaultValue;
+        }
+
+        /// <summary>
+        /// Retrieve an environment variable as a DateTime.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="format">Format of the string.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="format" /> is null.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a defined name or number value of the enum.</exception>
+        public DateTime GetDateTime(string name, string format)
+        {
+            if (format == null)
+                throw new ArgumentNullException(nameof(format));
+
+            var value = GetString(name);
+
+            try
+            {
+                return DateTime.ParseExact(value, format, null, DateTimeStyles.None);
+            }
+            catch (FormatException ex)
+            {
+                throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(DateTime), ex);
+            }
         }
     }
 }

@@ -1,5 +1,16 @@
 # Release Notes
 
+## 2.1.0 - ?
+
+Breaking changes:
+- (None)
+
+New features:
+- Added `EnvironmentVariableProvider.GetDateTime` method.
+
+Bug fixes / internal changes:
+- (None)
+
 ## 2.0.0 - 15 June 2022
 
 Breaking changes:

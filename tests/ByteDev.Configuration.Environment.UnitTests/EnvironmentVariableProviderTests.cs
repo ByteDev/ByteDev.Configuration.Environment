@@ -1283,6 +1283,55 @@ namespace ByteDev.Configuration.Environment.UnitTests
             }
         }
 
+        [TestFixture]
+        public class GetDateTime : EnvironmentVariableProviderTests
+        {
+            private const string FormatDate = "yyyyMMdd";
+
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetDateTime(name, FormatDate));    
+            }
+
+            [Test]
+            public void WhenFormatIsNull_ThenThrowException()
+            {
+                Assert.Throws<ArgumentNullException>(() => _sut.GetDateTime("name", null));
+            }
+            
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetDateTime(name, FormatDate));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsNotInCorrectFormat_ThenThrowException()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "NotDateTime");
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetDateTime(name, FormatDate));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsDateTime_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "20220110");
+
+                var result = _sut.GetDateTime(name, FormatDate);
+                
+                Assert.That(result, Is.EqualTo(new DateTime(2022, 1, 10)));
+            }
+        }
+
         private static string GetName()
         {
             return "IntTest" + Guid.NewGuid().ToString().Replace("-", string.Empty);

@@ -34,6 +34,7 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 - GetByteOrDefault
 - GetChar
 - GetCharOrDefault
+- GetDateTime
 - GetDecimal
 - GetDecimalOrDefault
 - GetDouble

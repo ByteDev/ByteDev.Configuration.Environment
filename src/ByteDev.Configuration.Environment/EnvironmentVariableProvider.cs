@@ -616,5 +616,32 @@ namespace ByteDev.Configuration.Environment
                 return defaultValue;
             }
         }
+
+        /// <summary>
+        /// Retrieve an environment variable as a TimeSpan.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="format">Format of the string.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="format" /> is null.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a TimeSpan based on the supplied format.</exception>
+        public TimeSpan GetTimeSpan(string name, string format)
+        {
+            if (format == null)
+                throw new ArgumentNullException(nameof(format));
+
+            var value = GetString(name);
+
+            try
+            {
+                return TimeSpan.ParseExact(value, format, CultureInfo.InvariantCulture, TimeSpanStyles.None);
+            }
+            catch (FormatException ex)
+            {
+                throw new UnexpectedEnvironmentVariableTypeException(name, value, typeof(TimeSpan), ex);
+            }
+        }
     }
 }

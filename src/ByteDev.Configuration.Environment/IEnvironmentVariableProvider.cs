@@ -316,5 +316,29 @@ namespace ByteDev.Configuration.Environment
         /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="format" /> is null.</exception>
         DateTime GetDateTimeOrDefault(string name, string format, DateTime defaultValue);
+
+        /// <summary>
+        /// Retrieve an environment variable as a TimeSpan.
+        /// </summary>
+        /// <param name="name">Name of environment variable.</param>
+        /// <param name="format">Format of the string.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="format" /> is null.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.EnvironmentVariableNotExistException">Environment variable does not exist.</exception>
+        /// <exception cref="T:ByteDev.Configuration.Environment.UnexpectedEnvironmentVariableTypeException">Environment variable value is not a TimeSpan based on the supplied format.</exception>
+        TimeSpan GetTimeSpan(string name, string format);
+
+        /// <summary>
+        /// Retrieve an environment variable as a TimeSpan. If it does not exist or it's value cannot be cast 
+        /// based on the supplied format then the <paramref name="defaultValue" /> will be returned.
+        /// </summary>
+        /// <param name="name">Name of the environment variable.</param>
+        /// <param name="format">Format of the string.</param>
+        /// <param name="defaultValue">Value to return if the environment variable does not exist or cannot be cast.</param>
+        /// <returns>Environment variable's value.</returns>
+        /// <exception cref="T:System.ArgumentException"><paramref name="name" /> was null or empty.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="format" /> is null.</exception>
+        TimeSpan GetTimeSpanOrDefault(string name, string format, TimeSpan defaultValue);
     }
 }

@@ -1,12 +1,13 @@
 # Release Notes
 
-## 2.2.0 - ?
+## 2.2.0 - 28 November 2022
 
 Breaking changes:
 - (None)
 
 New features:
 - Added `EnvironmentVariableProvider.GetTimeSpan` method.
+- Added `EnvironmentVariableProvider.GetTimeSpanOrDefault` method.
 
 Bug fixes / internal changes:
 - (None)

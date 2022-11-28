@@ -6,7 +6,7 @@ namespace ByteDev.Configuration.Environment.UnitTests
     [TestFixture]
     public class EnvironmentVariableProviderTests
     {
-        private EnvironmentVariableProvider _sut;
+        private IEnvironmentVariableProvider _sut;
 
         [SetUp]
         public void SetUp()
@@ -1284,70 +1284,6 @@ namespace ByteDev.Configuration.Environment.UnitTests
         }
 
         [TestFixture]
-        public class GetTimeSpan : EnvironmentVariableProviderTests
-        {
-            private const string FormatTimeSpan = @"hh\:mm\:ss";
-            private const string FormatTimeSpanMs = @"hh\:mm\:ss\.fff";
-
-            [TestCase(null)]
-            [TestCase("")]
-            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
-            {
-                Assert.Throws<ArgumentException>(() => _sut.GetTimeSpan(name, FormatTimeSpan));    
-            }
-
-            [Test]
-            public void WhenFormatIsNull_ThenThrowException()
-            {
-                Assert.Throws<ArgumentNullException>(() => _sut.GetTimeSpan("name", null));
-            }
-
-            [Test]
-            public void WhenVarDoesNotExist_ThenThrowException()
-            {
-                var name = GetName();
-
-                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetTimeSpan(name, FormatTimeSpan));
-            }
-
-            [TestCase("NotTimeSpan")]
-            [TestCase("00:00:01.1")]
-            [TestCase("00:00:01A")]
-            public void WhenVarExists_AndIsNotInCorrectFormat_ThenThrowException(string format)
-            {
-                var name = GetName();
-
-                _sut.Set(name, format);
-
-                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetTimeSpan(name, FormatTimeSpan));
-            }
-
-            [Test]
-            public void WhenVarExists_AndIsCorrectFormat_ThenReturnValue()
-            {
-                var name = GetName();
-
-                _sut.Set(name, "09:14:48");
-
-                var result = _sut.GetTimeSpan(name, FormatTimeSpan);
-                
-                Assert.That(result, Is.EqualTo(new TimeSpan(9, 14, 48)));
-            }
-
-            [Test]
-            public void WhenVarExists_AndIsCorrectFormatWithMs_ThenReturnValue()
-            {
-                var name = GetName();
-
-                _sut.Set(name, "09:14:48.500");
-
-                var result = _sut.GetTimeSpan(name, FormatTimeSpanMs);
-                
-                Assert.That(result, Is.EqualTo(new TimeSpan(0, 9, 14, 48, 500)));
-            }
-        }
-
-        [TestFixture]
         public class GetDateTime : EnvironmentVariableProviderTests
         {
             private const string FormatDate = "yyyyMMdd";
@@ -1454,6 +1390,127 @@ namespace ByteDev.Configuration.Environment.UnitTests
                 var result = _sut.GetDateTimeOrDefault(name, FormatDate, DefaultDateTime);
                 
                 Assert.That(result, Is.EqualTo(new DateTime(2022, 1, 10)));
+            }
+        }
+
+        [TestFixture]
+        public class GetTimeSpan : EnvironmentVariableProviderTests
+        {
+            private const string FormatTimeSpan = @"hh\:mm\:ss";
+            private const string FormatTimeSpanMs = @"hh\:mm\:ss\.fff";
+
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetTimeSpan(name, FormatTimeSpan));    
+            }
+
+            [Test]
+            public void WhenFormatIsNull_ThenThrowException()
+            {
+                Assert.Throws<ArgumentNullException>(() => _sut.GetTimeSpan("name", null));
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenThrowException()
+            {
+                var name = GetName();
+
+                Assert.Throws<EnvironmentVariableNotExistException>(() => _sut.GetTimeSpan(name, FormatTimeSpan));
+            }
+
+            [TestCase("NotTimeSpan")]
+            [TestCase("00:00:01.1")]
+            [TestCase("00:00:01A")]
+            public void WhenVarExists_AndIsNotInCorrectFormat_ThenThrowException(string format)
+            {
+                var name = GetName();
+
+                _sut.Set(name, format);
+
+                Assert.Throws<UnexpectedEnvironmentVariableTypeException>(() => _sut.GetTimeSpan(name, FormatTimeSpan));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsCorrectFormat_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "09:14:48");
+
+                var result = _sut.GetTimeSpan(name, FormatTimeSpan);
+                
+                Assert.That(result, Is.EqualTo(new TimeSpan(9, 14, 48)));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsCorrectFormatWithMs_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "09:14:48.500");
+
+                var result = _sut.GetTimeSpan(name, FormatTimeSpanMs);
+                
+                Assert.That(result, Is.EqualTo(new TimeSpan(0, 9, 14, 48, 500)));
+            }
+        }
+
+        [TestFixture]
+        public class GetTimeSpanOrDefault : EnvironmentVariableProviderTests
+        {
+            private const string FormatTimeSpan = @"hh\:mm\:ss";
+
+            private readonly TimeSpan DefaultTimeSpan = TimeSpan.Zero;
+
+            [TestCase(null)]
+            [TestCase("")]
+            public void WhenNameIsNullOrEmpty_ThenThrowException(string name)
+            {
+                Assert.Throws<ArgumentException>(() => _sut.GetTimeSpanOrDefault(name, FormatTimeSpan, DefaultTimeSpan));    
+            }
+
+            [Test]
+            public void WhenFormatIsNull_ThenThrowException()
+            {
+                Assert.Throws<ArgumentNullException>(() => _sut.GetTimeSpanOrDefault("name", null, DefaultTimeSpan));
+            }
+
+            [Test]
+            public void WhenVarDoesNotExist_ThenReturnDefault()
+            {
+                var name = GetName();
+
+                var result = _sut.GetTimeSpanOrDefault(name, FormatTimeSpan, DefaultTimeSpan);
+
+                Assert.That(result, Is.EqualTo(DefaultTimeSpan));
+            }
+
+            [TestCase("NotTimeSpan")]
+            [TestCase("00:00:01.1")]
+            [TestCase("00:00:01A")]
+            public void WhenVarExists_AndIsNotInCorrectFormat_ThenReturnDefault(string format)
+            {
+                var name = GetName();
+
+                _sut.Set(name, format);
+
+                var result = _sut.GetTimeSpanOrDefault(name, FormatTimeSpan, DefaultTimeSpan);
+
+                Assert.That(result, Is.EqualTo(DefaultTimeSpan));
+            }
+
+            [Test]
+            public void WhenVarExists_AndIsTimeSpan_ThenReturnValue()
+            {
+                var name = GetName();
+
+                _sut.Set(name, "09:14:48");
+
+                var result = _sut.GetTimeSpanOrDefault(name, FormatTimeSpan, DefaultTimeSpan);
+                
+                Assert.That(result, Is.EqualTo(new TimeSpan(9, 14, 48)));
             }
         }
 

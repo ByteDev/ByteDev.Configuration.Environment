@@ -55,6 +55,7 @@ The primary class for accessing environment variable is `EnvironmentVariableProv
 - GetString
 - GetStringOrDefault
 - GetTimeSpan
+- GetTimeSpanOrDefault
 - Set
 
 ```csharp
